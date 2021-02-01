@@ -70,6 +70,7 @@ colorscheme dracula
 				\'coc-r-lsp',
 				\'coc-prettier',
 				\'coc-html',
+				\'coc-github'
 				\]
 " TextEdit might fail if hidden is not set.
 	set hidden
