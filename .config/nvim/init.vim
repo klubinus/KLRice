@@ -18,6 +18,7 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
 Plug 'dracula/vim',{'as':'dracula'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set title
@@ -54,6 +55,51 @@ colorscheme dracula
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
+
+
+" Enable autocompletion settings for CoC
+	set wildmode=longest,list,full
+
+	let g:coc_globa_extensions = [
+				\'coc-snippets',
+				\'coc-pairs',
+				\'coc-python',
+				\'coc-json',
+				\'coc-markdownlent',
+				\'coc-sh',
+				\'coc-r-lsp',
+				\'coc-prettier',
+				\'coc-html',
+				\]
+" TextEdit might fail if hidden is not set.
+	set hidden
+
+" Some servers have issues with backup files, see #649.
+	set nobackup
+	set nowritebackup
+
+" Give more space for displaying messages.
+	set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+	set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+	set shortmess+=c
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
@@ -100,6 +146,7 @@ colorscheme dracula
 	autocmd VimLeave *.tex !texclear %
 
 " Ensure files are read as what I want:
+	let g:vimwiki_table_mappins = 0
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 	map <leader>v :VimwikiIndex
 	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
@@ -112,7 +159,7 @@ colorscheme dracula
 
 " Enable Goyo by default for mutt writing
 	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
+	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=dark
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
