@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ssh -i ~/.ssh/klubinus.pem klubinus@loginpub-hpc.urosario.edu.co -p 53841
