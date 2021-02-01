@@ -39,6 +39,9 @@ colorscheme dracula
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
+	set tabstop=4
+	set shiftwidth=4
+	map <C-c> gcc
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
